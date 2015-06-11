@@ -1,17 +1,15 @@
 package binarno.stablo;
 
-import java.util.LinkedList;
-
 public class BinarnoStablo{
 
 	private CvorBinarnogStabla koren;
 
-	public BinarnoStablo(CvorBinarnogStabla koren, LinkedList<CvorBinarnogStabla> stabloKaoLista) {
+	public BinarnoStablo(CvorBinarnogStabla koren) {
 		super();
 		this.koren = koren;
 	}
 
-	public BinarnoStablo(CvorBinarnogStabla koren) {
+	public BinarnoStablo() {
 		super();
 	}
 
@@ -25,7 +23,7 @@ public class BinarnoStablo{
 	}
 
 	public void ubaci(int kljuc, String vrednost) {
-			ubaci(koren, kljuc, vrednost);
+		ubaci(koren, kljuc, vrednost);
 	}
 
 	/**
@@ -71,29 +69,29 @@ public class BinarnoStablo{
 		if(cvor.kljuc == kljuc) {
 			return cvor.podatak;
 		}
-		if(kljuc < cvor.kljuc) {
-			pretrazi(cvor.levo, kljuc);
+		while(kljuc < cvor.kljuc) {
+			cvor = cvor.levo;
 		}
-		if(kljuc > cvor.kljuc) {
-			pretrazi(cvor.desno, kljuc);
+		while(kljuc > cvor.kljuc) {
+			cvor = cvor.desno;
 		}
 		return cvor.podatak;
 	}
 
-	public CvorBinarnogStabla pronadji(CvorBinarnogStabla koren, int kljuc) {
-		if(koren == null) {
+	public CvorBinarnogStabla pronadji(CvorBinarnogStabla cvor, int kljuc) {
+		if(cvor == null) {
 			return null;
 		}
-		if(koren.kljuc == kljuc) {
-			return koren;
+		if(cvor.kljuc == kljuc) {
+			return cvor;
 		}
-		if(kljuc < koren.kljuc) {
-			pretrazi(koren.levo, kljuc);
+		if(kljuc < cvor.kljuc) {
+			cvor = cvor.levo;
 		}
-		if(kljuc > koren.kljuc) {
-			pretrazi(koren.desno, kljuc);
+		if(kljuc > cvor.kljuc) {
+			cvor = cvor.desno;
 		}
-		return koren;
+		return cvor;
 	}
 
 	public void izbaci(int kljuc) {
@@ -176,31 +174,31 @@ public class BinarnoStablo{
 		return 1 + Math.max(visina(koren.levo), visina(koren.desno));
 	}
 
-	public void prefix(CvorBinarnogStabla koren) {
-		if(koren == null) {
+	public void prefix(CvorBinarnogStabla cvor) {
+		if(cvor == null) {
 			return;
 		}
-		System.out.println(koren.podatak); 
-		prefix(koren.levo);
-		prefix(koren.desno);
+		System.out.println(cvor.podatak); 
+		prefix(cvor.levo);
+		prefix(cvor.desno);
 	}
 
-	public void postfix(CvorBinarnogStabla koren) {
-		if(koren == null) {
+	public void postfix(CvorBinarnogStabla cvor) {
+		if(cvor == null) {
 			return;
 		}
-		prefix(koren.levo);
-		prefix(koren.desno);
-		System.out.println(koren.podatak); 
+		postfix(cvor.levo);
+		postfix(cvor.desno);
+		System.out.println(cvor.podatak); 
 	}
 
-	public void infix(CvorBinarnogStabla koren) {
-		if(koren == null) {
+	public void infix(CvorBinarnogStabla cvor) {
+		if(cvor == null) {
 			return;
 		}
-		prefix(koren.levo);
-		System.out.println(koren.podatak); 
-		prefix(koren.desno);
+		infix(cvor.levo);
+		System.out.println(cvor.podatak); 
+		infix(cvor.desno);
 	}
 
 
